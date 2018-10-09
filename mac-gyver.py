@@ -43,6 +43,9 @@ obj_lev=classes.level("level.json")
 #creates a list to display it on screen ( later on )
 obj_lev.create_a_list()
 
+#this function adds solid objects character can't reach
+mc.get_wall(obj_lev.list_wall())
+
 ############################################################
 # main loop
 ############################################################
@@ -59,6 +62,9 @@ while continue_main :
     #refreshing screen to update skin's position
     pygame.display.flip()
 
+    #stops the game if the exit is reached
+    if mcpos == mcstairs :
+        continue_main = False
     #events to play or leave the game
     for event in pygame.event.get():
         #for events == keydown

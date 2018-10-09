@@ -22,6 +22,7 @@ wall1="image_use/mur.png"
 wall2="image_use/mur2.png"
 back1="image_use/fond.png"
 back2="image_use/fond2.png"
+exit="image_use/exit.png"
 
 ############################################################
 # constants for the game
@@ -30,3 +31,5 @@ continue_main=True
 
 #mac gyver spawning position
 mcpos=(0,0)
+#mac gyver exit position
+mcstairs=(560,560)
