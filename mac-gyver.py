@@ -4,7 +4,8 @@
 #                   to escape
 ############################################################
 #               Script Python
-#       Files : mac-gyver.py, class.py, constant.py, n1.json
+#       Files : mac-gyver.py, classes.py, constant.py,
+#       function.py, image_use, level.json
 ############################################################
 
 ############################################################
@@ -31,6 +32,7 @@ fen = pygame.display.set_mode((right_side,up_side))
 # main windows' name
 pygame.display.set_caption(fen_title)
 
+############################################################
 #instantiate class movement under var mc
 mc=classes.movement(position=mcpos)
 
@@ -47,6 +49,13 @@ obj_lev.create_a_list()
 mc.get_wall(obj_lev.list_wall())
 
 ############################################################
+#creates items for level
+items = classes.items(obj_lev.list_wall())
+#knowing spawn, ending and walls position, creates place
+#for items
+items.create_pos()
+
+############################################################
 # main loop
 ############################################################
 while continue_main :
@@ -55,6 +64,9 @@ while continue_main :
 
     #displays ground
     obj_lev.shows(fen)
+
+    #lays items on the ground
+    items.item_ground(fen)
 
     #stick mac gyver skin's new position on screen
     fen.blit(char,mcpos)

@@ -18,11 +18,16 @@ fen_title="Mac Gyver"
 #images
 ############################################################
 mac_image="image_use/MacGyver.png"
+
 wall1="image_use/mur.png"
 wall2="image_use/mur2.png"
 back1="image_use/fond.png"
 back2="image_use/fond2.png"
 exit="image_use/exit.png"
+
+needle="image_use/aiguille.png"
+ether="image_use/ether.png"
+plastic="image_use/tube_plastique.png"
 
 ############################################################
 # constants for the game

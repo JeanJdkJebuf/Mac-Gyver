@@ -6,6 +6,7 @@ import json
 from constant import *
 import pygame
 import function
+import random
 
 
 #character class ( moving )
@@ -132,4 +133,36 @@ class level(object) :
                 if self.liste[ligne][car] == "n" :
                     wally.append((car*40,ligne*40))
         return wally
+
+#For lisibility, i'm going to create this class
+#I could implemente it to movement class,
+#but it would make that class hard to read
+class items(object) :
+    "this class creates items and places them randomly"
+    def __init__(self,level):
+        #level is a list of tuples that shows where walls are
+        self.level=level
+        #list of tuple of items position
+        self.item_list=[]
     
+    def create_pos(self) :
+        "this function creates position for items among the map"
+        #while items position aren't avalaible yet
+        while len(self.item_list)<3 :
+            test=(random.randrange(15)*40,random.randrange(15)*40)
+            if test in self.level or test ==mcpos or test == mcstairs :
+                continue
+            else :
+                self.item_list.append(test)
+
+    def item_ground(self,window) :
+        "this function lays items on the ground"
+        #creates items skin
+        mcneedle=pygame.image.load(needle).convert_alpha()
+        mcether=pygame.image.load(ether).convert_alpha()
+        mcplastic=pygame.image.load(plastic).convert_alpha()
+        
+        #copies items on the ground
+        window.blit(mcneedle,self.item_list[0])
+        window.blit(mcether,self.item_list[1])
+        window.blit(mcplastic,self.item_list[2])
