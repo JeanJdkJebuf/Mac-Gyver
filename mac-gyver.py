@@ -38,11 +38,20 @@ mc=classes.movement(position=mcpos)
 char = pygame.image.load(mac_image).convert_alpha()
 
 ############################################################
+#instantiate class level under var obj_lev
+obj_lev=classes.level("level.json")
+#creates a list to display it on screen ( later on )
+obj_lev.create_a_list()
+
+############################################################
 # main loop
 ############################################################
 while continue_main :
     #change refresh @30 ms
     pygame.time.Clock().tick(30)
+
+    #displays ground
+    obj_lev.shows(fen)
 
     #stick mac gyver skin's new position on screen
     fen.blit(char,mcpos)

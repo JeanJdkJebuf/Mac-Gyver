@@ -57,3 +57,41 @@ class movement(object) :
             else :
                 self.position=(self.position[0]-40,self.position[1])
                 return self.position
+
+#class that generates level
+class level(object) :
+    "this class generates a level"
+    def __init__(self, level) :
+        #level that you create
+        self.level=level
+        self.liste=[]
+    
+    #this function returns a list from level.json file
+    def create_a_list(self):
+        with open(self.level) as f:
+            data = json.load(f)
+            self.liste=data.get("liste")
+    
+    #this function displays walls 
+    def shows(self,window) :
+        "this function displays walls"
+        #pictures to paste
+        mcwall1=pygame.image.load(wall1).convert()
+        mcwall2=pygame.image.load(wall2).convert()
+        mcback1=pygame.image.load(back1).convert()
+        mcback2=pygame.image.load(back2).convert()
+        for ligne in range(len(self.liste)) :
+            #for each line in liste
+            for car in range(len(self.liste[ligne])) :
+                #for each caracter in line
+                #adds walls
+                if self.liste[ligne][car] == "m" :
+                    window.blit(mcwall1,(car*40,ligne*40))
+                if self.liste[ligne][car] == "n" :
+                    window.blit(mcwall2,(car*40,ligne*40))
+                #adds ground
+                if self.liste[ligne][car] == "0" :
+                    window.blit(mcback1,(car*40,ligne*40))
+                if self.liste[ligne][car] == "1" :
+                    window.blit(mcback2,(car*40,ligne*40))
+    
