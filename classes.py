@@ -21,6 +21,11 @@ class movement(object) :
         self.wall=[]
         #this var allows different skins for mac gyver
         self.look_at=3
+        #mac gyver's different skins
+        self.img_down=pygame.image.load(mc_down).convert_alpha()
+        self.img_up=pygame.image.load(mc_up).convert_alpha()
+        self.img_right=pygame.image.load(mc_right).convert_alpha()
+        self.img_left=pygame.image.load(mc_left).convert_alpha()
 
     def get_wall( self, liste ) :
         "use this function with a list to add solid objects character can't cross"
@@ -34,11 +39,8 @@ class movement(object) :
             #modifies where character looks
             self.look_at=1
             
-            #do not add position if mac gyver is bottom screen
-            if self.position[1]+40 >= 600 :
-                return self.position
             #if mac gyver goes into a wall
-            if  (self.position[0],self.position[1]+40) in self.wall :
+            if  (self.position[0],self.position[1]+40) in self.wall or self.position[1]+40 >= 600 :
                 return self.position
             #add +40 ( moves one square )
             else :
@@ -50,11 +52,8 @@ class movement(object) :
             #modifies where character looks
             self.look_at=2
 
-            #do not add position if mac gyver is top screen
-            if self.position[1]-40<0 :
-                return self.position
             #if mac gyver goes into a wall 
-            if  (self.position[0],self.position[1]-40) in self.wall :
+            if  (self.position[0],self.position[1]-40) in self.wall or self.position[1]-40<0:
                 return self.position
             #add -40 ( moves one square )
             else :
@@ -66,11 +65,8 @@ class movement(object) :
             #modifies where character looks
             self.look_at=3
 
-            #do not add position if mac gyver is top right
-            if self.position[0]+40>=600 :
-                return self.position
             #if mac gyver goes into a wall
-            if  (self.position[0]+40,self.position[1]) in self.wall :
+            if  (self.position[0]+40,self.position[1]) in self.wall or self.position[0]+40>=600 :
                 return self.position
             #add +40 position[0] ( moves one square )
             else :
@@ -82,10 +78,7 @@ class movement(object) :
             #modifies where character looks
             self.look_at=4
 
-            #do not add position if pos[0] == 0 ( means he is left)
-            if self.position[0] == 0 :
-                return self.position
-            if  (self.position[0]-40,self.position[1]) in self.wall :
+            if  (self.position[0]-40,self.position[1]) in self.wall or self.position[0] == 0 :
                 return self.position
             #add -40 position[0] ( moves one square )
             else :
@@ -94,14 +87,9 @@ class movement(object) :
     
     def looking_at(self) :
         "This function gives a skin related to key pressed"
-        #
-        img_down=pygame.image.load(mc_down).convert_alpha()
-        img_up=pygame.image.load(mc_up).convert_alpha()
-        img_right=pygame.image.load(mc_right).convert_alpha()
-        img_left=pygame.image.load(mc_left).convert_alpha()
-        #list with all skins
-        liste=[0,img_down,img_up,img_right,img_left]
         #returns proper skin
+        #list with all skins
+        liste=[0,self.img_down,self.img_up,self.img_right,self.img_left]
         return liste[self.look_at]
 
 #class that generates level
@@ -111,6 +99,12 @@ class level(object) :
         #level that you create
         self.level=level
         self.liste=[]
+        #pictures to paste
+        self.mcwall1=pygame.image.load(wall1).convert()
+        self.mcwall2=pygame.image.load(wall2).convert()
+        self.mcback1=pygame.image.load(back1).convert()
+        self.mcback2=pygame.image.load(back2).convert()
+        self.way_out=pygame.image.load(exit).convert_alpha()
     
     #this function returns a list from level.json file
     def create_a_list(self):
@@ -121,30 +115,24 @@ class level(object) :
     #this function displays walls 
     def shows(self,window) :
         "this function displays walls"
-        #pictures to paste
-        mcwall1=pygame.image.load(wall1).convert()
-        mcwall2=pygame.image.load(wall2).convert()
-        mcback1=pygame.image.load(back1).convert()
-        mcback2=pygame.image.load(back2).convert()
-        way_out=pygame.image.load(exit).convert_alpha()
         for ligne in range(len(self.liste)) :
             #for each line in liste
             for car in range(len(self.liste[ligne])) :
                 #for each caracter in line
                 #adds walls
                 if self.liste[ligne][car] == "m" :
-                    window.blit(mcwall1,(car*40,ligne*40))
+                    window.blit(self.mcwall1,(car*40,ligne*40))
                 if self.liste[ligne][car] == "n" :
-                    window.blit(mcwall2,(car*40,ligne*40))
+                    window.blit(self.mcwall2,(car*40,ligne*40))
                 #adds ground
                 if self.liste[ligne][car] == "0" :
-                    window.blit(mcback1,(car*40,ligne*40))
+                    window.blit(self.mcback1,(car*40,ligne*40))
                 if self.liste[ligne][car] == "1" :
-                    window.blit(mcback2,(car*40,ligne*40))
+                    window.blit(self.mcback2,(car*40,ligne*40))
                 #adds exit at position defined
                 #modify tuple to modify exit
                 if self.liste[ligne][car] == "e" :
-                    window.blit(way_out,(560,560))
+                    window.blit(self.way_out,(560,560))
     
     #this function returns walls tuple
     def list_wall(self):

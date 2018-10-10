@@ -32,6 +32,9 @@ fen = pygame.display.set_mode((right_side,up_side))
 # main windows' name
 pygame.display.set_caption(fen_title)
 
+#You can keep one button pressed to move faster
+pygame.key.set_repeat(400,30)
+
 ############################################################
 #instantiate class movement under var mc
 mc=classes.movement(position=mcpos)
