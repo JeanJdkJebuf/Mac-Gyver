@@ -19,6 +19,8 @@ class movement(object) :
         #walls position
         #will fill it with get_wall function
         self.wall=[]
+        #this var allows different skins for mac gyver
+        self.look_at=3
 
     def get_wall( self, liste ) :
         "use this function with a list to add solid objects character can't cross"
@@ -29,6 +31,9 @@ class movement(object) :
         "mac gyver's moves"
         #mac gyver goes down
         if function.keypressed(pygame.K_DOWN, event) :
+            #modifies where character looks
+            self.look_at=1
+            
             #do not add position if mac gyver is bottom screen
             if self.position[1]+40 >= 600 :
                 return self.position
@@ -42,6 +47,9 @@ class movement(object) :
         
         #mac gyver goes up
         if function.keypressed(pygame.K_UP, event) :
+            #modifies where character looks
+            self.look_at=2
+
             #do not add position if mac gyver is top screen
             if self.position[1]-40<0 :
                 return self.position
@@ -55,6 +63,9 @@ class movement(object) :
 
         #mac gyver goes right
         if function.keypressed(pygame.K_RIGHT, event) :
+            #modifies where character looks
+            self.look_at=3
+
             #do not add position if mac gyver is top right
             if self.position[0]+40>=600 :
                 return self.position
@@ -68,6 +79,9 @@ class movement(object) :
         
         #mac gyver goes left
         if function.keypressed(pygame.K_LEFT, event) :
+            #modifies where character looks
+            self.look_at=4
+
             #do not add position if pos[0] == 0 ( means he is left)
             if self.position[0] == 0 :
                 return self.position
@@ -77,6 +91,18 @@ class movement(object) :
             else :
                 self.position=(self.position[0]-40,self.position[1])
                 return self.position
+    
+    def looking_at(self) :
+        "This function gives a skin related to key pressed"
+        #
+        img_down=pygame.image.load(mc_down).convert_alpha()
+        img_up=pygame.image.load(mc_up).convert_alpha()
+        img_right=pygame.image.load(mc_right).convert_alpha()
+        img_left=pygame.image.load(mc_left).convert_alpha()
+        #list with all skins
+        liste=[0,img_down,img_up,img_right,img_left]
+        #returns proper skin
+        return liste[self.look_at]
 
 #class that generates level
 class level(object) :

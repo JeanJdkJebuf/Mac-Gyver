@@ -36,9 +36,6 @@ pygame.display.set_caption(fen_title)
 #instantiate class movement under var mc
 mc=classes.movement(position=mcpos)
 
-#adding character skin
-char = pygame.image.load(mac_image).convert_alpha()
-
 ############################################################
 #instantiate class level under var obj_lev
 obj_lev=classes.level("level.json")
@@ -69,7 +66,7 @@ while continue_main :
     items.item_ground(fen, mcpos)
 
     #stick mac gyver skin's new position on screen
-    fen.blit(char,mcpos)
+    fen.blit(mc.looking_at(),mcpos)
 
     #refreshing screen to update skin's position
     pygame.display.flip()
@@ -81,7 +78,7 @@ while continue_main :
     #stops the game if mac gyver got all items
     if mcpos == mcstairs and items.win_func() :
         continue_main = False
-        
+
     #events to play or leave the game
     for event in pygame.event.get():
         #for events == keydown
