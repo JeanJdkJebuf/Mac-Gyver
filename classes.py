@@ -144,25 +144,44 @@ class items(object) :
         self.level=level
         #list of tuple of items position
         self.item_list=[]
+        #win condition
+        self.win_cond=[(120,600),(160,600),(200,600)]
     
     def create_pos(self) :
         "this function creates position for items among the map"
         #while items position aren't avalaible yet
         while len(self.item_list)<3 :
             test=(random.randrange(15)*40,random.randrange(15)*40)
-            if test in self.level or test ==mcpos or test == mcstairs :
+            if test in self.level or test ==mcpos or test == mcstairs or test in self.item_list :
                 continue
             else :
                 self.item_list.append(test)
 
-    def item_ground(self,window) :
+    def item_ground(self,window, pos) :
         "this function lays items on the ground"
         #creates items skin
         mcneedle=pygame.image.load(needle).convert_alpha()
         mcether=pygame.image.load(ether).convert_alpha()
         mcplastic=pygame.image.load(plastic).convert_alpha()
         
+        #moving items if mcGyver walks on it
+        for x in range(len(self.item_list)) :
+            if pos == self.item_list[x]:
+                #adding win condition
+                self.item_list[x]=self.win_cond[x]
+
         #copies items on the ground
         window.blit(mcneedle,self.item_list[0])
         window.blit(mcether,self.item_list[1])
         window.blit(mcplastic,self.item_list[2])
+    
+    def win_func(self) :
+        "this function returns True if mac gyver took all items"
+        all_items=True
+        for x in range(len(self.item_list)) :
+            #if mc doens't walked on items
+            if self.item_list[x] != self.win_cond[x] :
+                all_items = False
+        
+        return all_items
+            

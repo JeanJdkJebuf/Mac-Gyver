@@ -66,7 +66,7 @@ while continue_main :
     obj_lev.shows(fen)
 
     #lays items on the ground
-    items.item_ground(fen)
+    items.item_ground(fen, mcpos)
 
     #stick mac gyver skin's new position on screen
     fen.blit(char,mcpos)
@@ -77,6 +77,11 @@ while continue_main :
     #stops the game if the exit is reached
     if mcpos == mcstairs :
         continue_main = False
+    
+    #stops the game if mac gyver got all items
+    if mcpos == mcstairs and items.win_func() :
+        continue_main = False
+        
     #events to play or leave the game
     for event in pygame.event.get():
         #for events == keydown
