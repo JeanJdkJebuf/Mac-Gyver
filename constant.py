@@ -8,7 +8,7 @@
 
 # main windows's size
 #vertical side
-up_side=600
+up_side=640
 #horizontal side
 right_side=600
 #main windows' name
@@ -31,6 +31,22 @@ mc_down="image_use/mc_gyver_down.png"
 mc_up="image_use/mc_gyver_up.png"
 mc_right="image_use/mc_gyver_right.png"
 mc_left="image_use/mc_gyver_left.png"
+
+#item spacebar
+item_bar="image_use/item_bar.png"
+#location
+loc_item_bar=(0,600)
+
+
+############################################################
+#endings
+#ending location
+ending=(0,0)
+#bad ending
+bd_ending="image_use/defeat.png"
+#good ending
+gd_ending="image_use/good_ending.png"
+
 ############################################################
 # constants for the game
 ############################################################

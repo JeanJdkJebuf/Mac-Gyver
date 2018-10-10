@@ -53,6 +53,16 @@ items = classes.items(obj_lev.list_wall())
 items.create_pos()
 
 ############################################################
+#Adding level design
+############################################################
+#item spacebar
+item_spacebar=pygame.image.load(item_bar).convert()
+#bad ending
+bad_ending=pygame.image.load(bd_ending).convert()
+#good ending
+good_ending=pygame.image.load(gd_ending).convert()
+
+############################################################
 # main loop
 ############################################################
 while continue_main :
@@ -61,6 +71,9 @@ while continue_main :
 
     #displays ground
     obj_lev.shows(fen)
+
+    #items spacebar
+    fen.blit(item_spacebar,loc_item_bar)
 
     #lays items on the ground
     items.item_ground(fen, mcpos)
@@ -71,12 +84,26 @@ while continue_main :
     #refreshing screen to update skin's position
     pygame.display.flip()
 
-    #stops the game if the exit is reached
-    if mcpos == mcstairs :
+    #bad ending
+    if mcpos == mcstairs and items.win_func()==False :
+        #displays bad ending screen
+        fen.blit(bad_ending,ending)
+        #refresh screen
+        pygame.display.flip()
+        #for 3000 ms
+        pygame.time.wait(3000)
+        #then stops loop
         continue_main = False
     
     #stops the game if mac gyver got all items
     if mcpos == mcstairs and items.win_func() :
+        #displays good ending screen
+        fen.blit(good_ending,ending)
+        #refresh screen
+        pygame.display.flip()
+        #for 3000 ms
+        pygame.time.wait(3000)
+        #then stops loop
         continue_main = False
 
     #events to play or leave the game

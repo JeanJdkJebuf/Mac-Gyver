@@ -171,7 +171,7 @@ class items(object) :
         #list of tuple of items position
         self.item_list=[]
         #win condition
-        self.win_cond=[(120,600),(160,600),(200,600)]
+        self.win_cond=[(40,600),(120,600),(200,600)]
     
     def create_pos(self) :
         "this function creates position for items among the map"
