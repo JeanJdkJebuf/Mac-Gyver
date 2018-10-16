@@ -37,11 +37,11 @@ pygame.key.set_repeat(400,30)
 
 ############################################################
 #instantiate class movement under var mc
-mc=classes.movement(position=mcpos)
+mc=classes.Movement(position=mcpos)
 
 ############################################################
 #instantiate class level under var obj_lev
-obj_lev=classes.level("level.json")
+obj_lev=classes.Level("level.json")
 #creates a list to display it on screen ( later on )
 obj_lev.create_a_list()
 
@@ -50,7 +50,7 @@ mc.get_wall(obj_lev.list_wall())
 
 ############################################################
 #creates items for level
-items = classes.items(obj_lev.list_wall())
+items = classes.Items(obj_lev.list_wall())
 #knowing spawn, ending and walls position, creates place
 #for items
 items.create_pos()
@@ -94,7 +94,7 @@ while continue_main :
         #refresh screen
         pygame.display.flip()
         #for 3000 ms
-        pygame.time.wait(3000)
+        pygame.time.wait(4000)
         #then stops loop
         continue_main = False
     
@@ -105,7 +105,7 @@ while continue_main :
         #refresh screen
         pygame.display.flip()
         #for 3000 ms
-        pygame.time.wait(3000)
+        pygame.time.wait(4000)
         #then stops loop
         continue_main = False
 

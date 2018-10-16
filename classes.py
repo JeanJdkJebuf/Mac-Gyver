@@ -10,7 +10,7 @@ import random
 
 
 #character class ( moving )
-class movement(object) :
+class Movement(object) :
     "this class allows mac gyver to move"
     def __init__(self,position=(0,0)) :
         "class strings"
@@ -40,7 +40,7 @@ class movement(object) :
             self.look_at=1
             
             #if mac gyver goes into a wall
-            if  (self.position[0],self.position[1]+40) in self.wall or self.position[1]+40 >= 600 :
+            if  function.check_out((self.position[0],self.position[1]+40),self.wall) :
                 return self.position
             #add +40 ( moves one square )
             else :
@@ -53,7 +53,7 @@ class movement(object) :
             self.look_at=2
 
             #if mac gyver goes into a wall 
-            if  (self.position[0],self.position[1]-40) in self.wall or self.position[1]-40<0:
+            if  function.check_out((self.position[0],self.position[1]-40),self.wall) :
                 return self.position
             #add -40 ( moves one square )
             else :
@@ -66,7 +66,7 @@ class movement(object) :
             self.look_at=3
 
             #if mac gyver goes into a wall
-            if  (self.position[0]+40,self.position[1]) in self.wall or self.position[0]+40>=600 :
+            if  function.check_out((self.position[0]+40,self.position[1]),self.wall) :
                 return self.position
             #add +40 position[0] ( moves one square )
             else :
@@ -78,7 +78,7 @@ class movement(object) :
             #modifies where character looks
             self.look_at=4
 
-            if  (self.position[0]-40,self.position[1]) in self.wall or self.position[0] == 0 :
+            if  function.check_out((self.position[0]-40,self.position[1]),self.wall) :
                 return self.position
             #add -40 position[0] ( moves one square )
             else :
@@ -93,7 +93,7 @@ class movement(object) :
         return liste[self.look_at]
 
 #class that generates level
-class level(object) :
+class Level(object) :
     "this class generates a level"
     def __init__(self, level) :
         #level that you create
@@ -151,7 +151,7 @@ class level(object) :
 #For lisibility, i'm going to create this class
 #I could implemente it to movement class,
 #but it would make that class hard to read
-class items(object) :
+class Items(object) :
     "this class creates items and places them randomly"
     def __init__(self,level):
         #level is a list of tuples that shows where walls are
@@ -160,6 +160,10 @@ class items(object) :
         self.item_list=[]
         #win condition
         self.win_cond=[(40,600),(120,600),(200,600)]
+        #creates items skin
+        self.mcneedle=pygame.image.load(needle).convert_alpha()
+        self.mcether=pygame.image.load(ether).convert_alpha()
+        self.mcplastic=pygame.image.load(plastic).convert_alpha()
     
     def create_pos(self) :
         "this function creates position for items among the map"
@@ -173,10 +177,6 @@ class items(object) :
 
     def item_ground(self,window, pos) :
         "this function lays items on the ground"
-        #creates items skin
-        mcneedle=pygame.image.load(needle).convert_alpha()
-        mcether=pygame.image.load(ether).convert_alpha()
-        mcplastic=pygame.image.load(plastic).convert_alpha()
         
         #moving items if mcGyver walks on it
         for x in range(len(self.item_list)) :
@@ -185,9 +185,9 @@ class items(object) :
                 self.item_list[x]=self.win_cond[x]
 
         #copies items on the ground
-        window.blit(mcneedle,self.item_list[0])
-        window.blit(mcether,self.item_list[1])
-        window.blit(mcplastic,self.item_list[2])
+        window.blit(self.mcneedle,self.item_list[0])
+        window.blit(self.mcether,self.item_list[1])
+        window.blit(self.mcplastic,self.item_list[2])
     
     def win_func(self) :
         "this function returns True if mac gyver took all items"
